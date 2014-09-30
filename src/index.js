@@ -47,6 +47,7 @@ function svgicons2svgfont(glyphs, options) {
   options = options || {};
   options.fontName = options.fontName || 'iconfont';
   options.fixedWidth = options.fixedWidth || false;
+  options.ascent = options.ascent || 0;
   options.descent = options.descent || 0;
   options.round = options.round || 10e12;
   var outputStream = new Stream.PassThrough()
@@ -205,7 +206,7 @@ function svgicons2svgfont(glyphs, options) {
 <defs>\n\
   <font id="' + options.fontName + '" horiz-adv-x="' + fontWidth + '">\n\
     <font-face font-family="' + options.fontName + '"\n\
-      units-per-em="' + fontHeight + '" ascent="' + (fontHeight - options.descent) + '"\n\
+      units-per-em="' + fontHeight + '" ascent="' + (options.ascent || fontHeight - options.descent) + '"\n\
       descent="' + options.descent + '" />\n\
     <missing-glyph horiz-adv-x="0" />\n');
         glyphs.forEach(function(glyph) {
