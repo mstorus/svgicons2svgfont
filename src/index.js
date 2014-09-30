@@ -50,6 +50,7 @@ function svgicons2svgfont(glyphs, options) {
   options.ascent = options.ascent || 0;
   options.descent = options.descent || 0;
   options.round = options.round || 10e12;
+  options.horizontalTranslation = options.horizontalTranslation || 0;
   var outputStream = new Stream.PassThrough()
     , log = (options.log || console.log.bind(console))
     , error = options.error || console.error.bind(console);
@@ -224,7 +225,7 @@ function svgicons2svgfont(glyphs, options) {
           glyph.d.forEach(function(cD) {
             d+=' '+new SVGPathData(cD)
                 .toAbs()
-                .translate(-glyph.dX, -glyph.dY)
+                .translate(-glyph.dX + options.horizontalTranslation, -glyph.dY)
                 .scale(
                   options.normalize ? ratio : 1,
                   options.normalize ? ratio : 1)
