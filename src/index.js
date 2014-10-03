@@ -206,7 +206,7 @@ function svgicons2svgfont(glyphs, options) {
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >\n\
 <svg xmlns="http://www.w3.org/2000/svg">\n\
 <defs>\n\
-  <font id="' + options.fontName + '" horiz-adv-x="' + (options.customWidth || fontWidth) + '">\n\
+  <font id="' + options.fontName + '" horiz-adv-x="' + (options.customWidth['*'] || fontWidth) + '">\n\
     <font-face font-family="' + options.fontName + '"\n\
       units-per-em="' + fontHeight + '" ascent="' + (options.ascent || fontHeight - options.descent) + '"\n\
       descent="' + options.descent + '" />\n\
@@ -218,7 +218,11 @@ function svgicons2svgfont(glyphs, options) {
             glyph.width = fontWidth;
           }
           if(options.customWidth) {
-            glyph.width = options.customWidth;
+	    if (options.customWidth[glyph.name]) {
+              glyph.width = options.customWidth[glyph.name];
+	    } else {
+	      glyph.width = options.customWidth['*'];
+	    }
           }
           if(options.normalize) {
             glyph.height = fontHeight;
